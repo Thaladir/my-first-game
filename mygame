@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>我的第一个 Phaser 游戏</title>
+  <style>
+    body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #2d2d2d; }
+    canvas { border: 1px solid #555; }
+  </style>
+</head>
+<body>
+
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+
+  <script>
+    const config = {
+      type: Phaser.AUTO,
+      width: 800,
+      height: 600,
+      backgroundColor: '#2d2d2d',
+      scene: {
+        preload: preload,
+        create: create,
+        update: update
+      }
+    };
+
+    const game = new Phaser.Game(config);
+
+    function preload() {
+      // 未来可以加载图片、音效
+    }
+
+    function create() {
+      // 创建一个红色小球
+      this.ball = this.add.circle(400, 300, 30, 0xff0000);
+      this.ballVelocity = { x: 2, y: 1 };
+    }
+
+    function update() {
+      this.ball.x += this.ballVelocity.x;
+      this.ball.y += this.ballVelocity.y;
+
+      // 碰撞反弹
+      if (this.ball.x < 0 || this.ball.x > 800) this.ballVelocity.x = -this.ballVelocity.x;
+      if (this.ball.y < 0 || this.ball.y > 600) this.ballVelocity.y = -this.ballVelocity.y;
+    }
+  </script>
+
+</body>
+</html>
